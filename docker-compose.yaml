@@ -1,0 +1,16 @@
+services:
+  leads_generator_db:
+    image: mongo:7.0
+    container_name: leads_generator_db
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    command: ["mongod", "--replSet", "rs0", "--keyFile", "/opt/mongodb-keyfile"]
+    volumes:
+      - leads_generator_volume:/data/db
+      - ./mongodb-keyfile:/opt/mongodb-keyfile
+volumes:
+  leads_generator_volume:
